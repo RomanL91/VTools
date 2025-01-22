@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "victoriatools"
+version = "0.1.0"
+description = ""
+authors = ["RomanL91 <dev_roman91@mail.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^5.1.5"
+python-dotenv = "^1.0.1"
+celery = {extras = ["redis"], version = "^5.4.0"}
+django-redis = "^5.4.0"
+django-celery-results = "^2.5.1"
+django-celery-beat = "^2.7.0"
+eventlet = "^0.38.2"
+gevent = "^24.11.1"
+openpyxl = "^3.1.5"
+requests = "^2.32.3"
+uvicorn = "^0.34.0"
+psycopg2 = "^2.9.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

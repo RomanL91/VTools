@@ -1,0 +1,46 @@
+services:
+  web:
+    container_name: tools_service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "9090:9090"
+    volumes:
+      - static_volume:/app/static
+      - media_volume:/app/media
+    entrypoint: [ "/app/entrypoint.sh" ]
+    networks:
+      - tools
+
+  redis:
+    image: redis:6.2-alpine # Используем легковесную версию Redis
+    restart: always # Автоматически перезапускаем при сбоях
+    # ports:
+    #   - "6379:6379" # Пробрасываем порт Redis на хостовую машину
+    networks:
+      - tools # Подключаем к общей сети
+
+  postgres:
+    image: postgres:15.4
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: MyToolDataBase
+      POSTGRES_USER: MyToolUser
+      POSTGRES_PASSWORD: MyToolPassword
+    networks:
+      - tools
+
+volumes:
+  media_volume:
+  static_volume:
+  postgres_data:
+
+
+networks:
+  tools: # external: true
